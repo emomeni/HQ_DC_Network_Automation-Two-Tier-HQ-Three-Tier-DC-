@@ -1,0 +1,22 @@
+---
+hostname: Access-SW03
+role: access
+site: DC
+
+vlans:
+  - { id: 110, name: "DC_VLAN110_APP" }
+  - { id: 120, name: "DC_VLAN120_DB" }
+
+access_ports:
+  - name: "Gig0/1"
+    vlan: 110
+    description: "Server-APP-5"
+  - name: "Gig0/2"
+    vlan: 120
+    description: "Server-DB-6"
+
+trunk_ports:
+  - name: "Gig0/24"
+    native_vlan: 110
+    allowed_vlans: "110,120"
+    description: "Uplink to Dist-SW02"

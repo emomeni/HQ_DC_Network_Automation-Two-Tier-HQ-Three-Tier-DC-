@@ -1,0 +1,33 @@
+---
+hostname: Core-02
+role: core
+site: HQ
+
+vlans: []
+
+svis: []
+
+l3_interfaces:
+  - name: Gig0/0
+    description: "To Firewall-HQ (11.1.1.0/29)"
+    ip: "11.1.1.4"
+    mask: "255.255.255.248"
+  - name: Gig0/1
+    description: "Core-02 <-> Core-01 link (11.1.1.0/29)"
+    ip: "11.1.1.5"
+    mask: "255.255.255.248"
+
+trunk_ports:
+  - { name: "Gig1/0", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-01" }
+  - { name: "Gig1/1", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-02" }
+  - { name: "Gig1/2", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-03" }
+  - { name: "Gig1/3", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-04" }
+
+ospf:
+  process_id: 10
+  router_id: 1.1.1.2
+  networks:
+    - { network: "11.1.1.0", wildcard: "0.0.0.7", area: 0 }
+
+static_default:
+  next_hop: "11.1.1.1"

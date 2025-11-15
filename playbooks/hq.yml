@@ -1,0 +1,15 @@
+---
+- name: Configure HQ Core Switches
+  hosts: hq_core
+  gather_facts: no
+  roles:
+    - base
+    - layer2
+    - layer3
+
+- name: Configure HQ Access Switches
+  hosts: hq_access
+  gather_facts: no
+  roles:
+    - base
+    - layer2

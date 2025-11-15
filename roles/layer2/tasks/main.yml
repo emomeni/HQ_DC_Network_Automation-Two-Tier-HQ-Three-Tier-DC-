@@ -1,0 +1,29 @@
+---
+- name: Configure VLANs
+  cisco.ios.ios_vlans:
+    config: "{{ vlans }}"
+    state: merged
+  when: vlans is defined and vlans | length > 0
+
+- name: Configure access ports
+  cisco.ios.ios_l2_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        mode: access
+        access:
+          vlan: "{{ item.vlan }}"
+    state: merged
+  loop: "{{ access_ports | default([]) }}"
+  when: access_ports is defined and access_ports | length > 0
+
+- name: Configure trunk ports
+  cisco.ios.ios_l2_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        mode: trunk
+        trunk:
+          native_vlan: "{{ item.native_vlan | default(1) }}"
+          allowed_vlans: "{{ item.allowed_vlans | default('all') }}"
+    state: merged
+  loop: "{{ trunk_ports | default([]) }}"
+  when: trunk_ports is defined and trunk_ports | length > 0

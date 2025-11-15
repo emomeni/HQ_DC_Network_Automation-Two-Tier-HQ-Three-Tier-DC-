@@ -1,0 +1,7 @@
+---
+site: "SEC"
+vpn_peers:
+  - name: HQ-DC
+    local_name: Firewall-HQ
+    remote_name: Firewall-DC
+    ike_psk: "CHANGE_ME"

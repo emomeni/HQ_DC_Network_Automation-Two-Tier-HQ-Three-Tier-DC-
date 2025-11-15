@@ -1,0 +1,29 @@
+---
+hostname: Dist-SW02
+role: dist
+site: DC
+
+vlans: []
+
+svis: []
+
+l3_interfaces:
+  - name: Gig0/0
+    description: "To Core-SW02 (172.17.0.0/29)"
+    ip: "172.17.0.3"
+    mask: "255.255.255.248"
+  - name: Gig0/1
+    description: "To Core-SW01 (172.15.0.0/29)"
+    ip: "172.15.0.2"
+    mask: "255.255.255.248"
+
+trunk_ports:
+  - { name: "Gig1/0", native_vlan: 110, allowed_vlans: "110,120", description: "To Access-SW03" }
+  - { name: "Gig1/1", native_vlan: 110, allowed_vlans: "110,120", description: "To Access-SW04" }
+
+ospf:
+  process_id: 20
+  router_id: 2.2.2.4
+  networks:
+    - { network: "172.17.0.0", wildcard: "0.0.0.7", area: 0 }
+    - { network: "172.15.0.0", wildcard: "0.0.0.7", area: 0 }

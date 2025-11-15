@@ -1,0 +1,23 @@
+---
+hostname: Switch-04
+role: access
+site: HQ
+
+vlans:
+  - { id: 40, name: "HQ_VLAN40_USERS" }
+
+access_ports:
+
+  - name: "Gig0/1"
+    vlan: 40
+    description: "PC07"
+
+  - name: "Gig0/2"
+    vlan: 40
+    description: "PC08"
+
+trunk_ports:
+  - name: "Gig0/24"
+    native_vlan: 10
+    allowed_vlans: "10,20,30,40"
+    description: "Uplink to Core-01/Core-02"

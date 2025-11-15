@@ -1,0 +1,37 @@
+---
+hostname: Core-SW02
+role: core
+site: DC
+
+vlans: []
+
+svis: []
+
+l3_interfaces:
+  - name: Gig0/0
+    description: "To Firewall-DC (172.12.0.0/29)"
+    ip: "172.12.0.2"
+    mask: "255.255.255.248"
+  - name: Gig0/1
+    description: "Core-SW02 <-> Core-SW01 (172.13.0.0/29)"
+    ip: "172.13.0.3"
+    mask: "255.255.255.248"
+  - name: Gig0/2
+    description: "To Dist-SW02 (172.17.0.0/29)"
+    ip: "172.17.0.2"
+    mask: "255.255.255.248"
+
+trunk_ports:
+  - { name: "Gig1/0", native_vlan: 110, allowed_vlans: "110,120", description: "To Dist-SW02" }
+  - { name: "Gig1/1", native_vlan: 110, allowed_vlans: "110,120", description: "To Dist-SW01" }
+
+ospf:
+  process_id: 20
+  router_id: 2.2.2.2
+  networks:
+    - { network: "172.12.0.0", wildcard: "0.0.0.7", area: 0 }
+    - { network: "172.13.0.0", wildcard: "0.0.0.7", area: 0 }
+    - { network: "172.17.0.0", wildcard: "0.0.0.7", area: 0 }
+
+static_default:
+  next_hop: "172.11.0.1"

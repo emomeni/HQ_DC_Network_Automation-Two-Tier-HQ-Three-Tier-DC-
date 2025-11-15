@@ -1,0 +1,6 @@
+---
+site: "DC"
+ospf:
+  process_id: 20
+  area: 0
+server_vlans: [110, 120]

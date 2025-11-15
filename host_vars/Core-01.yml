@@ -1,0 +1,49 @@
+---
+hostname: Core-01
+role: core
+site: HQ
+
+# VLANs for user segments – aligned with the diagram
+vlans:
+  - { id: 10, name: "HQ_VLAN10_USERS" }
+  - { id: 20, name: "HQ_VLAN20_USERS" }
+  - { id: 30, name: "HQ_VLAN30_USERS" }
+  - { id: 40, name: "HQ_VLAN40_USERS" }
+
+# SVIs terminate on Core-01 (default gateway for HQ VLANs)
+svis:
+  - { name: "Vlan10", ip: "10.1.1.1", mask: "255.255.255.0", description: "HQ VLAN 10 Users" }
+  - { name: "Vlan20", ip: "20.1.1.1", mask: "255.255.255.0", description: "HQ VLAN 20 Users" }
+  - { name: "Vlan30", ip: "30.1.1.1", mask: "255.255.255.0", description: "HQ VLAN 30 Users" }
+  - { name: "Vlan40", ip: "40.1.1.1", mask: "255.255.255.0", description: "HQ VLAN 40 Users" }
+
+# L3 links to firewall & Core-02
+l3_interfaces:
+  - name: Gig0/0
+    description: "To Firewall-HQ (11.1.1.0/29)"
+    ip: "11.1.1.2"
+    mask: "255.255.255.248"
+  - name: Gig0/1
+    description: "Core-01 <-> Core-02 link (11.1.1.0/29)"
+    ip: "11.1.1.3"
+    mask: "255.255.255.248"
+
+# Trunk downlinks to all four access switches
+trunk_ports:
+  - { name: "Gig1/0", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-01" }
+  - { name: "Gig1/1", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-02" }
+  - { name: "Gig1/2", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-03" }
+  - { name: "Gig1/3", native_vlan: 10, allowed_vlans: "10,20,30,40", description: "To Switch-04" }
+
+ospf:
+  process_id: 10
+  router_id: 1.1.1.1
+  networks:
+    - { network: "10.1.1.0", wildcard: "0.0.0.255", area: 0 }
+    - { network: "20.1.1.0", wildcard: "0.0.0.255", area: 0 }
+    - { network: "30.1.1.0", wildcard: "0.0.0.255", area: 0 }
+    - { network: "40.1.1.0", wildcard: "0.0.0.255", area: 0 }
+    - { network: "11.1.1.0", wildcard: "0.0.0.7", area: 0 }
+
+static_default:
+  next_hop: "11.1.1.1"   # Firewall-HQ inside IP (example)

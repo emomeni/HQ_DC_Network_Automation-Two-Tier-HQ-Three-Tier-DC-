@@ -1,0 +1,5 @@
+---
+site: "DC"
+ospf:
+  process_id: 20
+  area: 0

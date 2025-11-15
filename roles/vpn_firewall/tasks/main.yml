@@ -1,0 +1,26 @@
+---
+- name: Set firewall hostname
+  cisco.asa.asa_config:
+    lines:
+      - "hostname {{ hostname }}"
+  when: hostname is defined
+
+- name: Configure inside/outside interfaces
+  cisco.asa.asa_config:
+    lines:
+      - "interface {{ outside_interface }}"
+      - " nameif outside"
+      - " security-level 0"
+      - " ip address {{ outside_ip }} {{ outside_mask }}"
+      - "interface {{ inside_interface }}"
+      - " nameif inside"
+      - " security-level 100"
+      - " ip address {{ inside_ip }} {{ inside_mask }}"
+  when: outside_interface is defined and inside_interface is defined
+
+- name: NOTE about VPN policy
+  debug:
+    msg: >
+      This role intentionally leaves actual IPsec/IKE policy as a TODO.
+      Implement it according to your ASA/FTD standards (transform-set,
+      tunnel-group, crypto map/FVTI, etc.).

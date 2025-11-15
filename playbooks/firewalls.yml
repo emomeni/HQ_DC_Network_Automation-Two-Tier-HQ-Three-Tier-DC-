@@ -1,0 +1,6 @@
+---
+- name: Configure Firewalls (base + interfaces)
+  hosts: firewalls
+  gather_facts: no
+  roles:
+    - vpn_firewall

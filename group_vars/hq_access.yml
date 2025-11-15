@@ -1,0 +1,4 @@
+---
+site: "HQ"
+access_default_vlan: 10
+trunk_allowed_vlans: "10,20,30,40"

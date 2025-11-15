@@ -1,0 +1,23 @@
+---
+- name: Configure DC Core Switches
+  hosts: dc_core
+  gather_facts: no
+  roles:
+    - base
+    - layer2
+    - layer3
+
+- name: Configure DC Distribution Switches
+  hosts: dc_dist
+  gather_facts: no
+  roles:
+    - base
+    - layer2
+    - layer3
+
+- name: Configure DC Access Switches
+  hosts: dc_access
+  gather_facts: no
+  roles:
+    - base
+    - layer2

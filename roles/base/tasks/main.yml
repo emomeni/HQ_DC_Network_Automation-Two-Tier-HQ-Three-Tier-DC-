@@ -1,0 +1,48 @@
+---
+- name: Ensure hostname is set
+  cisco.ios.ios_system:
+    hostname: "{{ hostname }}"
+  when: hostname is defined
+
+- name: Configure domain name
+  cisco.ios.ios_system:
+    domain_name: "{{ domain_name }}"
+  when: domain_name is defined
+
+- name: Configure syslog servers
+  cisco.ios.ios_logging:
+    config:
+      - dest: host
+        name: "{{ item }}"
+        state: present
+    state: merged
+  loop: "{{ syslog_servers | default([]) }}"
+
+- name: Configure logging buffer
+  cisco.ios.ios_logging:
+    config:
+      - dest: buffered
+        size: "{{ logging_buffer_size | default(16384) }}"
+    state: merged
+
+- name: Configure NTP servers
+  cisco.ios.ios_ntp:
+    config:
+      - server: "{{ item }}"
+    state: merged
+  loop: "{{ ntp_servers | default([]) }}"
+
+- name: Configure timezone
+  cisco.ios.ios_config:
+    lines:
+      - "clock timezone {{ timezone }} 0"
+  when: timezone is defined
+
+- name: Configure basic SNMP
+  cisco.ios.ios_snmp_host:
+    config:
+      - community: "{{ snmp_community }}"
+        host: "{{ item }}"
+    state: merged
+  loop: "{{ syslog_servers | default([]) }}"
+  when: snmp_community is defined

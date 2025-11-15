@@ -1,0 +1,13 @@
+---
+hostname: Firewall-DC
+role: firewall
+site: DC
+
+outside_interface: Gig0/0
+inside_interface: Gig0/1
+
+outside_ip: 198.51.100.10
+outside_mask: 255.255.255.248
+inside_ip: 172.11.0.1
+inside_mask: 255.255.255.248
+peer_ip: 203.0.113.10

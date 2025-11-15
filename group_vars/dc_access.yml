@@ -1,0 +1,3 @@
+---
+site: "DC"
+trunk_allowed_vlans: "110,120"

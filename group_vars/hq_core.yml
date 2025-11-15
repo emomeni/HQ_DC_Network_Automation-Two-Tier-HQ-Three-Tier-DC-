@@ -1,0 +1,6 @@
+---
+site: "HQ"
+ospf:
+  process_id: 10
+  area: 0
+hq_user_vlans: [10, 20, 30, 40]

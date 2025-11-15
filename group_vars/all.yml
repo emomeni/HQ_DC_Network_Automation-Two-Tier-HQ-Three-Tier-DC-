@@ -1,0 +1,15 @@
+---
+# Common services
+ntp_servers:
+  - 192.0.2.10
+  - 192.0.2.11
+
+syslog_servers:
+  - 192.0.2.20
+
+snmp_community: "NET-MON"
+
+domain_name: "lab.local"
+timezone: "UTC"
+
+logging_buffer_size: 16384

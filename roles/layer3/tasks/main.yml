@@ -1,0 +1,43 @@
+---
+- name: Configure SVIs
+  cisco.ios.ios_l3_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        description: "{{ item.description | default('SVI') }}"
+        ipv4:
+          - address: "{{ item.ip }}/{{ item.mask | ipaddr('prefix') }}"
+    state: merged
+  loop: "{{ svis | default([]) }}"
+  when: svis is defined and svis | length > 0
+
+- name: Configure L3 routed interfaces
+  cisco.ios.ios_l3_interfaces:
+    config:
+      - name: "{{ item.name }}"
+        description: "{{ item.description | default('L3 link') }}"
+        ipv4:
+          - address: "{{ item.ip }}/{{ item.mask | ipaddr('prefix') }}"
+    state: merged
+  loop: "{{ l3_interfaces | default([]) }}"
+  when: l3_interfaces is defined and l3_interfaces | length > 0
+
+- name: Configure OSPF process and networks
+  cisco.ios.ios_ospf:
+    config:
+      processes:
+        - process_id: "{{ ospf.process_id }}"
+          router_id: "{{ ospf.router_id }}"
+          network:
+            - "{{ item.network }} {{ item.wildcard }} area {{ item.area }}"
+    state: merged
+  loop: "{{ ospf.networks | default([]) }}"
+  when: ospf is defined
+
+- name: Configure static default route
+  cisco.ios.ios_static_routes:
+    config:
+      - dest: 0.0.0.0/0
+        next_hop:
+          - forward_router_address: "{{ static_default.next_hop }}"
+    state: merged
+  when: static_default is defined and static_default.next_hop is defined

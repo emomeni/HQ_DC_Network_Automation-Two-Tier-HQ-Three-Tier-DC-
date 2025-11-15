@@ -1,0 +1,44 @@
+---
+hostname: Core-SW01
+role: core
+site: DC
+
+vlans:
+  - { id: 110, name: "DC_VLAN110_APP" }
+  - { id: 120, name: "DC_VLAN120_DB" }
+
+svis:
+  - { name: "Vlan110", ip: "172.20.1.1", mask: "255.255.255.0", description: "Server APP VLAN110" }
+  - { name: "Vlan120", ip: "172.21.1.1", mask: "255.255.255.0", description: "Server DB VLAN120" }
+
+# To FW, to peer core, and down to Dist-SW01
+l3_interfaces:
+  - name: Gig0/0
+    description: "To Firewall-DC (172.11.0.0/29)"
+    ip: "172.11.0.2"
+    mask: "255.255.255.248"
+  - name: Gig0/1
+    description: "Core-SW01 <-> Core-SW02 (172.13.0.0/29)"
+    ip: "172.13.0.2"
+    mask: "255.255.255.248"
+  - name: Gig0/2
+    description: "To Dist-SW01 (172.16.0.0/29)"
+    ip: "172.16.0.2"
+    mask: "255.255.255.248"
+
+trunk_ports:
+  - { name: "Gig1/0", native_vlan: 110, allowed_vlans: "110,120", description: "To Dist-SW01" }
+  - { name: "Gig1/1", native_vlan: 110, allowed_vlans: "110,120", description: "To Dist-SW02" }
+
+ospf:
+  process_id: 20
+  router_id: 2.2.2.1
+  networks:
+    - { network: "172.20.1.0", wildcard: "0.0.0.255", area: 0 }
+    - { network: "172.21.1.0", wildcard: "0.0.0.255", area: 0 }
+    - { network: "172.11.0.0", wildcard: "0.0.0.7", area: 0 }
+    - { network: "172.13.0.0", wildcard: "0.0.0.7", area: 0 }
+    - { network: "172.16.0.0", wildcard: "0.0.0.7", area: 0 }
+
+static_default:
+  next_hop: "172.11.0.1"
