@@ -21,7 +21,11 @@ The design is:
 The credit of this topology goes to Randy Pratma Putra (https://www.linkedin.com/in/randy-pratama-putra/)
 
 ## Watch the Video on YouTube
-[![Watch the video](./images/juniper_srx_thumbnail.jpg)](https://youtu.be/l5mCyKV7QLs?si=VShaLqceU0ZIU2xo)
+#### Two-Tier HQ & Three-Tier Data Center Automation using Ansible - Session 1 - Network Topology Design
+[![Watch the video](./images/hq-dc-cover-1.png)](https://youtu.be/l5mCyKV7QLs?si=VShaLqceU0ZIU2xo)
+
+#### Two-Tier HQ & Three-Tier Data Center Automation using Ansible - Session 2 - Ansible Inventory Design
+[![Watch the video](./images/hq-dc-cover-2.png)](https://youtu.be/L3awJaLNScU?si=qFOxja4IKbj0ZHRS)
 
 ## 1. Requirements
 
