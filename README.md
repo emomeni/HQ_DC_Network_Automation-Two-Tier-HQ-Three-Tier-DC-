@@ -21,7 +21,7 @@ The design is:
 The credit of this topology goes to Randy Pratma Putra (https://www.linkedin.com/in/randy-pratama-putra/)
 
 ## Watch the Video on YouTube
-[![Watch the video](./images/juniper_srx_thumbnail.jpg)](https://youtube.com/@ehsanmomeni007?si=WN-tooMzS_Ki6bDZ)
+[![Watch the video](./images/juniper_srx_thumbnail.jpg)](https://youtu.be/l5mCyKV7QLs?si=VShaLqceU0ZIU2xo)
 
 ## 1. Requirements
 
