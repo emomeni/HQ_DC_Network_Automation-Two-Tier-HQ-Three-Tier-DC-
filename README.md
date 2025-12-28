@@ -27,6 +27,11 @@ The credit of this topology goes to Randy Pratma Putra (https://www.linkedin.com
 #### Two-Tier HQ & Three-Tier Data Center Automation using Ansible - Session 2 - Ansible Inventory Design
 [![Watch the video](./images/hq-dc-cover-2.png)](https://youtu.be/L3awJaLNScU?si=qFOxja4IKbj0ZHRS)
 
+#### Two-Tier HQ & Three-Tier DataCenter Automation using Ansible - Session 3 - Ansible Playbooks & Roles
+[![Watch the video](./images/hq-dc-cover-3.png)](https://youtu.be/H95Wev8VqsQ?si=KA2bk8rF3t7INSAC)
+
+#### Two-Tier HQ & Three-Tier Data Center Automation using Ansible - Session 4 - Running the Automation
+[![Watch the video](./images/hq-dc-cover-4.png)](https://youtu.be/lMreUQIeYME?si=9FJYxKo8vzQuNkAm)
 ## 1. Requirements
 
 - Python 3.10+
